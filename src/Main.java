@@ -62,12 +62,29 @@ public class Main {
 
         } while (!scanner.nextLine().equals("non"));
 
-        System.out.println("Saisir le montant de la TVA");
-        double tva =( price / 100) * scanner.nextInt();
-        double totalWithTaxes = total + tva;
+        System.out.println("Entrez le code votre pays");
+        countryCode = scanner.nextLine();
 
+        double taxes = applyTVA(total, countryCode);
+        double totalWithTaxes = total + taxes;
+
+        System.out.println("----------------------------");
+        System.out.println("Prix TTC : " + decimalFormat.format(totalWithTaxes));
         System.out.println("Réduction : 0€");
-        System.out.println("Total TTC " + decimalFormat.format(totalWithTaxes));
+        System.out.println("TVA : " + decimalFormat.format(taxes));
+    }
+
+    private static double applyTVA(double price, String countryCode) {
+        Tva discount = Tva.valueOf_(countryCode.toUpperCase());
+        int tva = 0;
+
+        switch (discount) {
+            case BE -> tva = Tva.BE.getTva();
+            case DE -> tva = Tva.DE.getTva();
+            case ES -> tva = Tva.ES.getTva();
+            case FR -> tva = Tva.FR.getTva();
+        }
+        return (price / 100) * tva;
     }
 
     private static double totalWithoutTaxes() {
