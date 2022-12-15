@@ -66,6 +66,7 @@ public class Main {
         double tva =( price / 100) * scanner.nextInt();
         double totalWithTaxes = total + tva;
 
+        System.out.println("Réduction : 0€");
         System.out.println("Total TTC " + decimalFormat.format(totalWithTaxes));
     }
 
