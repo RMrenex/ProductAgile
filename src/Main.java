@@ -11,9 +11,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        double price = 0;
-        int quantity = 0;
-        double total = 0;
+        double price;
+        int quantity;
+        double total;
         int discount = -1;
 
         String productName;
@@ -58,6 +58,12 @@ public class Main {
             String response = scanner.nextLine();
 
         } while (!scanner.nextLine().equals("non"));
+
+        System.out.println("Saisir le montant de la TVA");
+        double tva =( price / 100) * scanner.nextInt();
+        double totalWithTaxes = total + tva;
+
+        System.out.println("Total TTC " + decimalFormat.format(totalWithTaxes));
     }
 
     private static double totalWithoutTaxes() {
