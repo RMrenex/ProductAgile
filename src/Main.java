@@ -45,6 +45,9 @@ public class Main {
             total = totalWithoutTaxes();
             System.out.println("Prix total : " + decimalFormat.format(total) + " €");
 
+            System.out.println("Voulez vous ajouter un autre article dans votre panier ? (oui/non)");
+            String response = scanner.nextLine();
+
         } while (!scanner.nextLine().equals("non"));
     }
 
