@@ -23,6 +23,15 @@ public class Main {
 
         do {
 
+            System.out.println("Saisir le nom de l'article");
+            productName = scanner.nextLine();
+
+            while (!productName.matches(".*[a-z].*")) {
+                System.out.println("Le nom de l'article doit contenir uniquement des lettres");
+                System.out.println("Saisir à nouveau le nom de l'article");
+                productName = scanner.nextLine();
+            }
+
             try {
                 System.out.println("Saisir un prix");
                 price = scanner.nextDouble();
@@ -39,7 +48,7 @@ public class Main {
                 return;
             }
 
-            products.add(new Product(price, quantity));
+            products.add(new Product(productName, price, quantity));
             System.out.println("Produit ajouté au panier");
 
             total = totalWithoutTaxes();
