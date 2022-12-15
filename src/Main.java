@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Main {
 
+    private final static int DISCOUNTS[] = new int[]{3, 5, 7, 10, 15};
     private static DecimalFormat decimalFormat = new DecimalFormat("#.##");
     private static List<Product> products = new ArrayList<>();
 
@@ -20,10 +21,12 @@ public class Main {
         String countryCode;
 
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Code TVA :");
+        displayDiscounts();
 
         do {
 
-            System.out.println("Saisir le nom de l'article");
+            System.out.println("\nSaisir le nom de l'article");
             productName = scanner.nextLine();
 
             while (!productName.matches(".*[a-z].*")) {
@@ -72,5 +75,11 @@ public class Main {
             total += product.sum();
         }
         return total;
+    }
+
+    private static void displayDiscounts() {
+        for (int i = 0; i < DISCOUNTS.length; i++) {
+            System.out.println(i + 1 + " - " + DISCOUNTS[i] + "%");
+        }
     }
 }
