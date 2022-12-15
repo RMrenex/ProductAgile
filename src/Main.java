@@ -15,7 +15,7 @@ public class Main {
         double price;
         int quantity;
         double total;
-        int discount = -1;
+        int discount = 0;
 
         String productName;
         String countryCode;
@@ -65,12 +65,22 @@ public class Main {
         System.out.println("Entrez le code votre pays");
         countryCode = scanner.nextLine();
 
+        System.out.println("Avez-vous un code de réduction");
+        if (scanner.nextLine().equalsIgnoreCase("oui")) {
+            System.out.println("Sélectionner le pourcentage de votre réduction");
+            displayDiscounts();
+            discount = setDiscount(scanner.nextInt());
+        }
+
+        double totalDiscount = getDiscount(price, discount);
+        double totalWithDiscount = totalWithoutTaxes() - totalDiscount;
         double taxes = applyTVA(total, countryCode);
         double totalWithTaxes = total + taxes;
 
         System.out.println("----------------------------");
+        System.out.println("Prix HT " + decimalFormat.format(totalWithDiscount));
         System.out.println("Prix TTC : " + decimalFormat.format(totalWithTaxes));
-        System.out.println("Réduction : 0€");
+        System.out.println("Réduction : " + discount + "€");
         System.out.println("TVA : " + decimalFormat.format(taxes));
     }
 
@@ -85,6 +95,32 @@ public class Main {
             case FR -> tva = Tva.FR.getTva();
         }
         return (price / 100) * tva;
+    }
+
+    private static int setDiscount(int choice) {
+
+        switch (choice) {
+            case 1 -> {
+                return DISCOUNTS[0];
+            }
+            case 2 -> {
+                return DISCOUNTS[1];
+            }
+            case 3 -> {
+                return DISCOUNTS[2];
+            }
+            case 4 -> {
+                return DISCOUNTS[3];
+            }
+            case 5 -> {
+                return DISCOUNTS[4];
+            }
+            default -> {return 0;}
+        }
+    }
+
+    private static double getDiscount(double price, int discount) {
+        return discount * price / 100;
     }
 
     private static double totalWithoutTaxes() {
