@@ -1,6 +1,58 @@
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
 public class Main {
 
+    private static DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    private static List<Product> products = new ArrayList<>();
+
     public static void main(String[] args) {
-        System.out.println("Hello world !");
+
+        double price = 0;
+        int quantity = 0;
+        double total = 0;
+        int discount = -1;
+
+        String productName;
+        String countryCode;
+
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+
+            try {
+                System.out.println("Saisir un prix");
+                price = scanner.nextDouble();
+            } catch (InputMismatchException exception) {
+                System.out.println("Format du prix incorrect");
+                return;
+            }
+
+            try {
+                System.out.println("Saisir une qantité");
+                quantity = scanner.nextInt();
+            } catch (InputMismatchException exception) {
+                System.out.println("Format du prix incorrect");
+                return;
+            }
+
+            products.add(new Product(price, quantity));
+            System.out.println("Produit ajouté au panier");
+
+            total = totalWithoutTaxes();
+            System.out.println("Prix total : " + decimalFormat.format(total) + " €");
+
+        } while (!scanner.nextLine().equals("non"));
+    }
+
+    private static double totalWithoutTaxes() {
+        double total = 0;
+        for (Product product : products) {
+            total += product.sum();
+        }
+        return total;
     }
 }
