@@ -1,12 +1,14 @@
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
-    private final static int DISCOUNTS[] = new int[]{3, 5, 7, 10, 15};
-    private static DecimalFormat decimalFormat = new DecimalFormat("#.##");
-    private static List<Product> products = new ArrayList<>();
+    private final static int[] DISCOUNTS = new int[]{3, 5, 7, 10, 15};
+    private static final DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    private static final List<Product> products = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -70,7 +72,8 @@ public class Main {
             discount = setDiscount(scanner.nextInt());
         }
 
-        double totalDiscount = getDiscount(price, discount);
+        discount += getDiscountRate(totalWithoutTaxes());
+        double totalDiscount = getDiscount(totalWithoutTaxes(), discount);
         double totalWithDiscount = totalWithoutTaxes() - totalDiscount;
         double taxes = applyTVA(total, countryCode);
         double totalWithTaxes = total + taxes;
@@ -117,28 +120,28 @@ public class Main {
         }
     }
 
-    private double getDiscountRate(double price, int discount){
+    private static double getDiscountRate(double price){
         int quantity = getQuantity();
         double discountRate = 0;
         if(quantity > 1000 && quantity < 5000){
-            discountRate =  getDiscount(price, discount);
+            discountRate =  getDiscount(price, DISCOUNTS[0]);
         }
-        if(quantity > 5000 && quantity < 7000){
-            discountRate =  getDiscount(price, discount);
+        else if(quantity > 5000 && quantity < 7000){
+            discountRate =  getDiscount(price, DISCOUNTS[1]);
         }
-        if(quantity > 7000 && quantity < 10000){
-            discountRate =  getDiscount(price, discount);
+        else if(quantity > 7000 && quantity < 10000){
+            discountRate =  getDiscount(price, DISCOUNTS[2]);
         }
-        if(quantity > 10000 && quantity < 15000){
-            discountRate =  getDiscount(price, discount);
+        else if(quantity > 10000 && quantity < 15000){
+            discountRate =  getDiscount(price, DISCOUNTS[3]);
         }
-        if(quantity > 15000){
-            discountRate =  getDiscount(price, discount);
+        else if(quantity > 15000){
+            discountRate =  getDiscount(price, DISCOUNTS[4]);
         }
         return discountRate;
     }
 
-    private int getQuantity(){
+    private static int getQuantity(){
         return products.stream().mapToInt(Product::getQuantity).sum();
     }
 
