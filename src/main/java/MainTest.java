@@ -38,14 +38,14 @@ class MainTest {
     }
 
     @Test
-    @DisplayName("Détermine si l'utilisateur et éligible à une promotion automatique en fonction du nombre total d'article")
+    @DisplayName("Détermine si l'utilisateur et éligible à une promotion automatique en fonction du nombre totale d'article")
     void getDiscountRate(){
         double discountRate = Main.getDiscountRateForTest(450.00, 6500);
         Assertions.assertEquals(22.5, discountRate);
     }
 
     @Test
-    @DisplayName("Calcul la quantité total d'article")
+    @DisplayName("Calcul la quantité totale d'article")
     void getQuantity(){
         int quantity = products.stream().mapToInt(Product::getQuantity).sum();
         Assertions.assertEquals(39, quantity);
