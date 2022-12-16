@@ -1,8 +1,6 @@
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -117,6 +115,31 @@ public class Main {
             }
             default -> {return 0;}
         }
+    }
+
+    private double getDiscountRate(double price, int discount){
+        int quantity = getQuantity();
+        double discountRate = 0;
+        if(quantity > 1000 && quantity < 5000){
+            discountRate =  getDiscount(price, discount);
+        }
+        if(quantity > 5000 && quantity < 7000){
+            discountRate =  getDiscount(price, discount);
+        }
+        if(quantity > 7000 && quantity < 10000){
+            discountRate =  getDiscount(price, discount);
+        }
+        if(quantity > 10000 && quantity < 15000){
+            discountRate =  getDiscount(price, discount);
+        }
+        if(quantity > 15000){
+            discountRate =  getDiscount(price, discount);
+        }
+        return discountRate;
+    }
+
+    private int getQuantity(){
+        return products.stream().mapToInt(Product::getQuantity).sum();
     }
 
     private static double getDiscount(double price, int discount) {
