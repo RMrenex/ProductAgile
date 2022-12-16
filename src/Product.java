@@ -32,6 +32,6 @@ public class Product {
     }
 
     public void createLine(){
-        System.out.println("Nom : " + label + " Quantité : " + " x" + quantity + " Prix unitaire : " + price + "€ Prix total " + sum() + " €");
+        System.out.println("Nom : " + label + " Quantité : " + " x" + quantity + " Prix unitaire : " + price + "€ Prix total " + Main.decimalFormat.format(sum()) + " €");
     }
 }

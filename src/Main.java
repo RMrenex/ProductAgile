@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
 
     private final static int[] DISCOUNTS = new int[]{3, 5, 7, 10, 15};
-    private static final DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    public static final DecimalFormat decimalFormat = new DecimalFormat("#.##");
     private static final List<Product> products = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -78,6 +78,7 @@ public class Main {
         double taxes = applyTVA(total, countryCode);
         double totalWithTaxes = total + taxes;
 
+        products.forEach(Product::createLine);
         System.out.println("----------------------------");
         System.out.println("Prix HT " + decimalFormat.format(totalWithDiscount));
         System.out.println("Prix TTC : " + decimalFormat.format(totalWithTaxes));
