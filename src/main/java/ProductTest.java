@@ -23,16 +23,6 @@ class ProductTest {
     void getLabel() {
         Product product = products.stream().findFirst().get();
         Assertions.assertEquals("Tomate", product.getLabel());
-/*        String input = "Tomate";
-        InputStream inputStream = System.in;
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        Scanner scanner = new Scanner(System.in);
-        String expected = scanner.next();
-
-        Assertions.assertEquals(input, expected);
-        System.setIn(inputStream);
-        scanner.close();*/
     }
 
     @Test
