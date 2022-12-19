@@ -21,8 +21,10 @@ public class Main {
         String countryCode;
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Code TVA :");
+        System.out.println("Code Réduction :");
         displayDiscounts();
+        System.out.println("Code TVA :");
+        displayTVACode();
 
         do {
 
@@ -65,7 +67,7 @@ public class Main {
         System.out.println("Entrez le code votre pays");
         countryCode = scanner.nextLine();
 
-        System.out.println("Avez-vous un code de réduction");
+        System.out.println("Avez-vous un code de réduction ? (oui/non)");
         if (scanner.nextLine().equalsIgnoreCase("oui")) {
             System.out.println("Sélectionner le pourcentage de votre réduction");
             displayDiscounts();
@@ -175,6 +177,12 @@ public class Main {
     private static void displayDiscounts() {
         for (int i = 0; i < DISCOUNTS.length; i++) {
             System.out.println(i + 1 + " - " + DISCOUNTS[i] + "%");
+        }
+    }
+
+    private static void displayTVACode(){
+        for (Tva value : Tva.values()) {
+            System.out.println("- " + value.getCode());
         }
     }
 }
